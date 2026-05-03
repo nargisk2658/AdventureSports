@@ -1,0 +1,329 @@
+{% extends 'homepage.html' %}
+
+{% block block1 %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>Adventure Sports - Smart Tours</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #fff;
+        }
+        .adventure-header {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('../static/images/mbg1.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 80px 0;
+            text-align: center;
+            border-radius: 0 0 60px 60px;
+        }
+        .adventure-card {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255,255,255,0.1);
+            cursor: pointer;
+        }
+        .adventure-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            background: rgba(255,255,255,0.15);
+            border-color: rgba(0,212,255,0.5);
+        }
+        .activity-icon {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .difficulty-badge {
+            padding: 6px 18px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .difficulty-easy { background: linear-gradient(45deg, #28a745, #20c997); color: white; }
+        .difficulty-moderate { background: linear-gradient(45deg, #ffc107, #ffca2c); color: #000; }
+        .difficulty-hard { background: linear-gradient(45deg, #fd7e14, #ff6b35); color: white; }
+        .difficulty-expert { background: linear-gradient(45deg, #dc3545, #c8235c); color: white; }
+        .price-tag {
+            font-size: 1.4rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #00d4ff, #0099ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .location-tag {
+            background: rgba(0,212,255,0.15);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(0,212,255,0.3);
+        }
+        .season-tag {
+            background: rgba(255,193,7,0.15);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255,193,7,0.3);
+        }
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #00d4ff, #295AF7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .search-box {
+            background: rgba(255,255,255,0.15);
+            border: 2px solid rgba(255,255,255,0.2);
+            padding: 15px 30px;
+            border-radius: 50px;
+            color: white;
+            width: 100%;
+            max-width: 500px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        .search-box:focus {
+            border-color: #00d4ff;
+            box-shadow: 0 0 25px rgba(0,212,255,0.3);
+            outline: none;
+        }
+        .search-box::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+        .filter-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 10px 25px;
+            border-radius: 25px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: linear-gradient(45deg, #00d4ff, #0099ff);
+            border-color: transparent;
+            transform: scale(1.05);
+        }
+        .stats-card {
+            background: rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .stats-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.12);
+        }
+        .stats-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #00d4ff, #295AF7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .btn-book {
+            background: linear-gradient(45deg, #00d4ff, #0099ff);
+            border: none;
+            padding: 14px 35px;
+            border-radius: 30px;
+            color: white;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 15px;
+        }
+        .btn-book:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0,212,255,0.4);
+        }
+    </style>
+{% endblock %}
+
+{% block block2 %}
+<div class="fluid-container">
+    <!-- Header Section -->
+    <div class="adventure-header">
+        <h1 class="section-title">🏔️ Adventure Sports in India</h1>
+        <p style="font-size: 1.4rem; opacity: 0.9;">Discover Thrilling Experiences Across the Incredible Landscape</p>
+        
+        <!-- Search Box -->
+        <div style="margin-top: 35px;">
+            <input type="text" class="search-box" placeholder="🔍 Search adventures..." id="searchInput" onkeyup="filterAdventures()">
+        </div>
+        
+        <!-- Quick Stats -->
+        <div class="container" style="margin-top: 50px;">
+            <div class="row justify-content-center">
+                <div class="col-md-3 col-sm-6">
+                    <div class="stats-card">
+                        <div class="stats-number">{{ adventures.count }}</div>
+                        <div style="opacity: 0.8;">Adventures</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="stats-card">
+                        <div class="stats-number">15+</div>
+                        <div style="opacity: 0.8;">States</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="stats-card">
+                        <div class="stats-number">₹300</div>
+                        <div style="opacity: 0.8;">Starting</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="stats-card">
+                        <div class="stats-number">4</div>
+                        <div style="opacity: 0.8;">Difficulty</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter Buttons -->
+    <div class="container mb-5" style="margin-top: 40px;">
+        <div class="d-flex justify-content-center flex-wrap gap-3">
+            <button class="filter-btn active" onclick="filterByDifficulty('all')">All</button>
+            <button class="filter-btn" onclick="filterByDifficulty('Easy')">Easy</button>
+            <button class="filter-btn" onclick="filterByDifficulty('Moderate')">Moderate</button>
+            <button class="filter-btn" onclick="filterByDifficulty('Hard')">Hard</button>
+            <button class="filter-btn" onclick="filterByDifficulty('Expert')">Expert</button>
+        </div>
+    </div>
+
+    <!-- Adventures Grid -->
+    <div class="container pb-5">
+        <div class="row" id="adventuresGrid">
+            {% for adventure in adventures %}
+            <div class="col-lg-4 col-md-6 adventure-item" data-difficulty="{{ adventure.difficulty }}">
+                <div class="adventure-card">
+                    <!-- Activity Icon -->
+                    <div class="activity-icon text-center">
+                        {% if adventure.activity_name == "River Rafting" %}🚣
+                        {% elif adventure.activity_name == "Bungee Jumping" %}🪂
+                        {% elif adventure.activity_name == "Scuba Diving" %}🤿
+                        {% elif adventure.activity_name == "Snorkeling" %}🏊
+                        {% elif adventure.activity_name == "Paragliding" %}🪂
+                        {% elif adventure.activity_name == "Trekking to Everest Base Camp" %}🏔️
+                        {% elif adventure.activity_name == "Kayaking" %}🛶
+                        {% elif adventure.activity_name == "Rock Climbing" %}🧗
+                        {% elif adventure.activity_name == "Zip Lining" %}⚡
+                        {% elif adventure.activity_name == "Wildlife Safari" %}🦁
+                        {% elif adventure.activity_name == "Mountain Cycling" %}🚴
+                        {% elif adventure.activity_name == "Camping" %}⛺
+                        {% elif adventure.activity_name == "Skiing" %}🎿
+                        {% elif adventure.activity_name == "Hot Air Ballooning" %}🎈
+                        {% elif adventure.activity_name == "Water Rappelling" %}💦
+                        {% elif adventure.activity_name == " Cliff Jumping" %}🏊
+                        {% elif adventure.activity_name == "Surfing" %}🌊
+                        {% elif adventure.activity_name == "Ice Skating" %}❄️
+                        {% else %}🎯{% endif %}
+                    </div>
+                    
+                    <!-- Activity Name -->
+                    <h3 style="font-size: 1.4rem; margin-bottom: 12px; text-align: center;">{{ adventure.activity_name }}</h3>
+                    
+                    <!-- Location & State -->
+                    <div style="margin-bottom: 15px; text-align: center;">
+                        <span class="location-tag">📍 {{ adventure.location }}, {{ adventure.state }}</span>
+                    </div>
+                    
+                    <!-- Description -->
+                    <p style="opacity: 0.85; margin-bottom: 18px; font-size: 0.95rem; line-height: 1.5;">{{ adventure.description }}</p>
+                    
+                    <!-- Difficulty & Price -->
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="difficulty-badge difficulty-{{ adventure.difficulty|lower }}">{{ adventure.difficulty }}</span>
+                        <span class="price-tag">{{ adventure.price_range }}</span>
+                    </div>
+                    
+                    <!-- Best Season -->
+                    <div style="text-align: center; margin-top: 10px;">
+                        <span class="season-tag">🌤️ Best: {{ adventure.best_season }}</span>
+                    </div>
+                    
+                    <!-- Book Button -->
+                    <form method="POST" action="{% url 'book_adventure' adventure.id %}">
+                        {% csrf_token %}
+                        <button class="btn-book" type="submit">
+                            <i class="fas fa-rocket"></i> Book Now
+                        </button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<script>
+    // Search functionality
+    function filterAdventures() {
+        const input = document.getElementById('searchInput');
+        const filter = input.value.toUpperCase();
+        const grid = document.getElementById('adventuresGrid');
+        const cards = grid.getElementsByClassName('adventure-item');
+        
+        for (let i = 0; i < cards.length; i++) {
+            const card = cards[i];
+            const title = card.querySelector('h3');
+            const location = card.querySelector('.location-tag');
+            const text = (title.textContent || title.innerText) + ' ' + (location.textContent || location.innerText);
+            
+            if (text.toUpperCase().indexOf(filter) > -1) {
+                card.style.display = '';
+            } else {
+                card.style.display = 'none';
+            }
+        }
+    }
+    
+    // Filter by difficulty
+    function filterByDifficulty(difficulty) {
+        // Update button states
+        const buttons = document.querySelectorAll('.filter-btn');
+        buttons.forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.textContent.toLowerCase() === difficulty.toLowerCase() || (difficulty === 'all' && btn.textContent === 'All')) {
+                btn.classList.add('active');
+            }
+        });
+        
+        const grid = document.getElementById('adventuresGrid');
+        const cards = grid.getElementsByClassName('adventure-item');
+        
+        for (let i = 0; i < cards.length; i++) {
+            const card = cards[i];
+            if (difficulty === 'all') {
+                card.style.display = '';
+            } else {
+                const cardDifficulty = card.getAttribute('data-difficulty');
+                if (cardDifficulty === difficulty) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            }
+        }
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,262 @@
+{% extends 'homepage.html' %}
+
+{% block block1 %}
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+
+    <title>Login</title>
+  </head>
+  <style type="text/css">
+    /* CSS Variables */
+    :root {
+        --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --secondary-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        --dark-gradient: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        --glass-bg: rgba(255, 255, 255, 0.1);
+        --glass-border: rgba(255, 255, 255, 0.2);
+        --accent-color: #38ef7d;
+    }
+    
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: var(--dark-gradient);
+        min-height: 100vh;
+    }
+    
+    /* Modern Navbar */
+    .navbar {
+        background: rgba(26, 26, 46, 0.95) !important;
+        backdrop-filter: blur(10px);
+    }
+    
+    .navbar-brand {
+        font-size: 1.8rem !important;
+        font-weight: 700;
+        background: var(--secondary-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    
+    .nav-link {
+        color: #fff !important;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+    
+    .nav-link:hover {
+        color: var(--accent-color) !important;
+    }
+    
+    /* Modern Background Section */
+    .login-bg {
+        min-height: 100vh;
+        background: var(--dark-gradient);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .login-bg::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(102, 126, 234, 0.15) 0%, transparent 50%);
+        animation: rotateGradient 20s linear infinite;
+    }
+    
+    @keyframes rotateGradient {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+    
+    /* Glassmorphism Card */
+    .card {
+        background: var(--glass-bg);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--glass-border);
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        max-width: 450px;
+        width: 100%;
+    }
+    
+    /* Form Styling */
+    .form-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 30px;
+        text-align: center;
+        background: var(--primary-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    
+    /* Modern Input Fields */
+    input[type="text"], input[type="password"], input[type="email"] {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 10px;
+        padding: 15px 20px;
+        color: #fff;
+        width: 100%;
+        margin-bottom: 20px;
+        transition: all 0.3s ease;
+    }
+    
+input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus {
+        outline: none;
+        border-color: var(--accent-color);
+        box-shadow: 0 0 20px rgba(56, 239, 125, 0.3);
+    }
+    
+    input::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+    }
+    
+    /* Modern Button */
+    .btn-primary {
+        background: var(--primary-gradient);
+        border: none;
+        padding: 15px 40px;
+        border-radius: 25px;
+        font-weight: 600;
+        width: 100%;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
+    }
+    
+    /* Alert */
+    .alert-danger {
+        background: rgba(220, 53, 69, 0.2);
+        border: 1px solid rgba(220, 53, 69, 0.5);
+        border-radius: 10px;
+        color: #fff;
+    }
+    
+    /* Links */
+    .links {
+        text-align: center;
+        margin-top: 20px;
+    }
+    
+    .links a {
+        color: var(--accent-color);
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .links a:hover {
+        text-decoration: underline;
+    }
+    
+    /* Footer */
+    footer {
+        background: rgba(10, 10, 20, 0.95);
+        padding: 30px 0;
+    }
+    
+    .footer-content h3 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        background: var(--secondary-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    
+    .footer-bottom {
+        background: rgba(0, 0, 0, 0.5);
+        padding: 15px 0;
+    }
+  </style>
+{% endblock %}
+{% block block2 %}
+<div class="fluid-container login-bg">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">
+      <i class="fas fa-plane-departure me-2"></i>Smart Tours
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+        <li class="nav-item"><a class="nav-link active" href="/loginpage">Login</a></li>
+        <li class="nav-item"><a class="nav-link" href="/signuppage">SignUp</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    
+    <!-- Login Form -->
+    <div class="container d-flex align-items-center justify-content-center" style="min-height: 80vh;">
+        <div class="card">
+            <h2 class="form-title">Welcome Back!</h2>
+            
+            {% if error %}
+            <div class="alert alert-danger">
+                {{ error }}
+            </div>
+            {% endif %}
+            
+            <form method="POST">
+                {% csrf_token %}
+                {{form.as_p}}
+                
+                <div class="links">
+                    <a href="/forgotpassword">Forgot Password?</a>
+                    <br><br>
+                    <span style="opacity: 0.7;">Don't have an account?</span>
+                    <a href="/signuppage">Sign Up</a>
+                </div>
+                
+                <input type="submit" value="Login" class="btn btn-primary">
+            </form>
+        </div>
+    </div>
+</div>
+	<!--<h1>Nav Bar</h1>
+	{{msg}}
+	<center>
+		<h3>Login</h3>
+		<form method="POST">
+		{% csrf_token %}
+		{{form.as_p}}
+		<input type="submit" value="Login">
+		</form>
+	</center>-->
+{% endblock %}
+<!--<!DOCTYPE html>
+<html>
+<head>
+	<title>Login</title>
+</head>
+<body>
+	
+</body>
+</html>-->
+
+
+	
+	
+

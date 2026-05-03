@@ -1,0 +1,320 @@
+{% extends 'homepage.html' %}
+
+{% block block1 %}
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+
+    <title>Smart Tours</title>
+  </head>
+  <style type="text/css">
+    /* CSS Variables */
+    :root {
+        --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --secondary-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        --dark-gradient: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        --glass-bg: rgba(255, 255, 255, 0.1);
+        --glass-border: rgba(255, 255, 255, 0.2);
+        --accent-color: #38ef7d;
+    }
+    
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: var(--dark-gradient);
+        min-height: 100vh;
+        color: #fff;
+    }
+    
+    /* Modern Navbar */
+    .navbar {
+        background: rgba(26, 26, 46, 0.95) !important;
+        backdrop-filter: blur(10px);
+        padding: 15px 0;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    .navbar-brand {
+        font-size: 1.8rem !important;
+        font-weight: 700;
+        background: var(--secondary-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    
+    .nav-link {
+        color: #fff !important;
+        font-weight: 500;
+        padding: 8px 20px !important;
+        margin: 0 5px;
+        border-radius: 25px;
+        transition: all 0.3s ease;
+    }
+    
+    .nav-link:hover {
+        color: var(--accent-color) !important;
+        transform: translateY(-2px);
+    }
+    
+    /* Modern Top Div with Parallax */
+    .top-div{
+        background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("../static/images/mbg1.jpg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        height: 50vh;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .top-div::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 300%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+        animation: shimmer 3s infinite;
+    }
+    
+    @keyframes shimmer {
+        0% { left: -100%; }
+        100% { left: 100%; }
+    }
+    
+    .top-div h1 {
+        font-size: 3rem;
+        font-weight: 800;
+        text-align: center;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        animation: fadeInUp 1s ease-out;
+    }
+    
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Modern Card */
+    .card {
+        background: var(--glass-bg);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--glass-border);
+        border-radius: 20px;
+        padding: 25px;
+        transition: all 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        border-color: var(--accent-color);
+    }
+    
+    .card img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 15px;
+        margin-bottom: 15px;
+        transition: all 0.3s ease;
+    }
+    
+    .card:hover img {
+        transform: scale(1.05);
+    }
+    
+    .card h2 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+        background: var(--primary-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    
+    /* Modern Buttons */
+    .btn-info {
+        width: 150px;
+        background: var(--primary-gradient);
+        border: none;
+        padding: 12px 25px;
+        border-radius: 25px;
+        color: white;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: block;
+        margin: 0 auto;
+        text-decoration: none;
+    }
+    
+    .btn-info:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
+        color: white;
+    }
+    
+    /* Footer */
+    footer{
+        background: rgba(10, 10, 20, 0.95);
+        height: auto;
+        width: 100vw;
+        font-family: "Open Sans"; 
+        padding-top: 40px;
+        color: #fff;
+    }
+    
+    .footer-content{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .footer-content h3{
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        background: var(--secondary-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    
+    .footer-content p{
+        max-width: 500px;
+        margin: 10px auto;
+        line-height: 28px;
+        font-size: 14px;
+    }
+    
+    .footer-bottom{
+        background: rgba(0, 0, 0, 0.5);
+        width: 100%;
+        padding: 20px 0;
+        text-align: center;
+        margin-top: 30px;
+    }
+    
+    .footer-bottom span{
+        text-transform: uppercase;
+        opacity: .4;
+        font-weight: 200;
+    }
+    
+    /* Floating Animation */
+    .floating {
+        animation: floating 3s ease-in-out infinite;
+    }
+    
+    @keyframes floating {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-15px); }
+        100% { transform: translateY(0px); }
+    }
+  </style>
+{% endblock %}
+{% block block2 %}
+	<div class="fluid-container">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/home"><i class="fas fa-plane-departure me-2"></i>Smart Tours</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link active" href="/home">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="/tours">Tours</a></li>
+        <li class="nav-item"><a class="nav-link" href="/bookbus">Bus</a></li>
+        <li class="nav-item"><a class="nav-link" href="/bookflight">Flight</a></li>
+        <li class="nav-item"><a class="nav-link" href="/seasonsdashboard">Seasons</a></li>
+        <li class="nav-item"><a class="nav-link" href="/adventures">Adventures</a></li>
+        <li class="nav-item"><a class="nav-link" href="/createtour">Create Tour</a></li>
+      </ul>
+      <div class="dropdown ms-lg-auto">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">Menu</a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
+          <li><a class="dropdown-item" href="/profile"><i class="fas fa-user me-2"></i>Profile</a></li>
+          <li><a class="dropdown-item" href="/dashboard"><i class="fas fa-chart-bar me-2"></i>Dashboard</a></li>
+          <li><a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+				<div class="top-div"></div>
+				<br>
+<div class="container">
+					<div class="row">
+					<div class="col-lg-4">
+						<div class="card floating" style="animation-delay: 0s;">
+							<h2>🏖️ Tourism</h2>
+							<img src="../static/images/delhi.jpg">
+							<p style="opacity: 0.8; margin-bottom: 15px;">Explore amazing destinations across India with our curated tour packages.</p>
+							<a href="/tours" class="btn btn-info">Book Tour</a>
+						</div>
+					</div>
+					<div class="col-lg-4">
+						<div class="card floating" style="animation-delay: 0.5s;">
+							<h2>🚌 Travel</h2>
+							<img src="../static/images/busflight.jpg">
+							<p style="opacity: 0.8; margin-bottom: 15px;">Comfortable travel options with multiple airlines and bus services.</p>
+							<a href="/bookbus" class="btn btn-info">Bus or Flight</a>
+						</div>
+					</div>
+					<div class="col-lg-4">
+						<div class="card floating" style="animation-delay: 1s;">
+							<h2>🏨 Hospitality</h2>
+							<img src="../static/images/hospitality.jfif">
+							<p style="opacity: 0.8; margin-bottom: 15px;">Premium hotels and resorts for a comfortable stay.</p>
+							<a href="/hospitality" class="btn btn-info">View Hotels</a>
+						</div>
+					</div>
+				</div>
+			</div>
+				</div>
+		
+</div>
+	<!--<h1>Nav Bar</h1>
+	{{msg}}
+	<center>
+		<h3>Login</h3>
+		<form method="POST">
+		{% csrf_token %}
+		{{form.as_p}}
+		<input type="submit" value="Login">
+		</form>
+	</center>-->
+
+{% endblock %}
+<!--<!DOCTYPE html>
+<html>
+<head>
+	<title>Login</title>
+</head>
+<body>
+	
+</body>
+</html>-->
+
+
+	
+	
+

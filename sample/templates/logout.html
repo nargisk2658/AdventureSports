@@ -1,0 +1,230 @@
+{% extends 'homepage.html' %}
+
+{% block block1 %}
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Auto redirect to login after 3 seconds -->
+    <meta http-equiv="refresh" content="3;url=/loginpage/">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Logged Out | Smart Tours</title>
+</head>
+<style type="text/css">
+    /* CSS Variables - Matching login.html style */
+    :root {
+        --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --secondary-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        --success-gradient: linear-gradient(135deg, #22c55e 0%, #38ef7d 100%);
+        --dark-gradient: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        --glass-bg: rgba(255, 255, 255, 0.1);
+        --glass-border: rgba(255, 255, 255, 0.2);
+        --accent-color: #38ef7d;
+    }
+    
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: var(--dark-gradient);
+        min-height: 100vh;
+        overflow-x: hidden;
+    }
+    
+    /* Animated Background */
+    .logout-bg {
+        min-height: 100vh;
+        position: relative;
+        background: var(--dark-gradient);
+    }
+    
+    .logout-bg::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(56, 239, 125, 0.1) 0%, transparent 70%);
+        animation: float 6s ease-in-out infinite alternate;
+    }
+    
+    @keyframes float {
+        0% { transform: translateY(0px) rotate(0deg); }
+        100% { transform: translateY(-20px) rotate(180deg); }
+    }
+    
+    /* Navbar */
+    .navbar {
+        background: rgba(26, 26, 46, 0.95) !important;
+        backdrop-filter: blur(10px);
+    }
+    
+    .navbar-brand {
+        font-size: 1.8rem !important;
+        font-weight: 700;
+        background: var(--secondary-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    
+    /* Glassmorphism Card */
+    .success-card {
+        background: var(--glass-bg);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--glass-border);
+        border-radius: 25px;
+        padding: 50px 30px;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+        max-width: 500px;
+        width: 100%;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .success-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: var(--success-gradient);
+    }
+    
+    /* Success Icon */
+    .success-icon {
+        font-size: 5rem;
+        color: #22c55e;
+        margin-bottom: 20px;
+        animation: bounce 1s ease-in-out;
+    }
+    
+    @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+        40% { transform: translateY(-10px); }
+        60% { transform: translateY(-5px); }
+    }
+    
+    .success-title {
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin-bottom: 15px;
+        background: var(--success-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    
+    .success-message {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1.1rem;
+        margin-bottom: 25px;
+        line-height: 1.6;
+    }
+    
+    .countdown {
+        background: rgba(56, 239, 125, 0.2);
+        border: 1px solid rgba(56, 239, 125, 0.4);
+        border-radius: 50px;
+        padding: 12px 25px;
+        color: #38ef7d;
+        font-weight: 600;
+        font-size: 1.1rem;
+        display: inline-block;
+        backdrop-filter: blur(10px);
+    }
+    
+    .manual-link {
+        margin-top: 25px;
+        color: var(--accent-color);
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+    
+    .manual-link:hover {
+        text-decoration: underline;
+        color: #22c55e;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+        .success-card {
+            margin: 20px;
+            padding: 40px 20px;
+        }
+        
+        .success-icon {
+            font-size: 4rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block block2 %}
+<div class="logout-bg">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-plane-departure me-2"></i>Smart Tours
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/"><i class="fas fa-home me-1"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/loginpage/"><i class="fas fa-sign-in-alt me-1"></i> Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Success Content -->
+    <div class="container d-flex align-items-center justify-content-center" style="min-height: calc(100vh - 80px);">
+        <div class="success-card animate__animated animate__fadeInUp">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h1 class="success-title">Logged Out Successfully!</h1>
+            <p class="success-message">
+                Thank you for using Smart Tours. You have been safely logged out of your account.<br>
+                Your session has been cleared and your privacy is protected.
+            </p>
+            <div class="countdown" id="countdown">
+                <i class="fas fa-clock me-2"></i>
+                Redirecting in <span id="timer">3</span> seconds...
+            </div>
+            <a href="/loginpage/" class="manual-link">
+                <i class="fas fa-arrow-right me-1"></i>Go to Login Now
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+    let timeLeft = 3;
+    const timer = document.getElementById('timer');
+    
+    const countdown = setInterval(() => {
+        timeLeft--;
+        timer.textContent = timeLeft;
+        
+        if (timeLeft <= 0) {
+            clearInterval(countdown);
+        }
+    }, 1000);
+</script>
+{% endblock %}

@@ -1,0 +1,289 @@
+{% extends 'bookbuspage.html' %}
+{% load static %}
+
+{% block topdivblock %}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js">
+<style>
+:root {
+    --spring: linear-gradient(135deg, #f9d71c 0%, #ff9a8b 100%);
+    --summer: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+    --autumn: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    --winter: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --shimmer: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    --text-glow: 0 0 20px rgba(255,255,255,0.5);
+  }
+  * { box-sizing: border-box; }
+  body { 
+    background: var(--primary-gradient);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0; padding: 0; overflow-x: hidden;
+  }
+  .particles-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+.seasonal-header { 
+    position: relative; min-height: 70vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; 
+    background: linear-gradient(-45deg, var(--spring), var(--summer), var(--autumn), var(--winter));
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    box-shadow: inset 0 0 100px rgba(0,0,0,0.3);
+  }
+  @keyframes gradientShift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+  .header-content h1 { 
+    font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; background: linear-gradient(45deg, white, #00d4ff); 
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin: 0; animation: fadeInUp 1s; 
+  }
+  .header-content p { font-size: clamp(1rem, 2.5vw, 1.3rem); opacity: 0.95; animation: fadeInUp 1s 0.3s both; }
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  
+  .glass-card { 
+    background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 24px; 
+    padding: 2rem; margin-bottom: 2rem; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+.glass-card { 
+    background: var(--glass-bg); backdrop-filter: blur(25px); border: 1px solid var(--glass-border); border-radius: 32px; 
+    padding: 2.5rem; transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1); position: relative; overflow: hidden;
+  }
+  .glass-card::before {
+    content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: var(--shimmer); transition: 0.7s; }
+  .glass-card:hover::before { left: 100%; }
+  .glass-card:hover { transform: translateY(-15px) scale(1.02); box-shadow: 0 35px 60px rgba(0,0,0,0.3), var(--text-glow); }
+
+  .season-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; grid-template-rows: masonry; }
+  .season-item { text-align: center; }
+  .season-icon { font-size: 4rem; margin-bottom: 1rem; animation: float 3s ease-in-out infinite; }
+  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+  .season-name { font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem; }
+  .season-value { font-size: 2.5rem; font-weight: 800; background: linear-gradient(45deg, #00d4ff, #00ff88); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  
+  .chart-wrapper { background: var(--glass-bg); backdrop-filter: blur(15px); border-radius: 24px; padding: 2rem; margin: 2rem 0; }
+  .progress-bar { height: 8px; background: var(--glass-border); border-radius: 4px; overflow: hidden; margin-top: 1.5rem; }
+  .progress-fill { height: 100%; background: var(--success-gradient); transition: width 1.5s ease; border-radius: 4px; }
+  .peak-alert { background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,165,0,0.2)); border-left: 4px solid gold; }
+  .seasonal-emoji { font-size: 4rem; transition: transform 0.3s; }
+  .seasonal-emoji::before { content: '🌟'; }
+  .num { transition: all 1.5s ease; }
+  
+  .tips-carousel { display: flex; overflow-x: auto; gap: 1rem; padding: 2rem 0; scroll-snap-type: x mandatory; }
+  .tip-card { flex: 0 0 350px; scroll-snap-align: start; }
+  
+  .cta-section { text-align: center; margin-top: 4rem; }
+  .cta-btn { background: var(--success-gradient); border: none; padding: 1rem 3rem; border-radius: 50px; font-weight: 600; font-size: 1.2rem; transition: all 0.3s; }
+  .cta-btn:hover { transform: scale(1.05); box-shadow: var(--text-glow); }
+  
+  .count-up { font-size: 2.5rem; font-weight: 800; }
+  
+  /* Responsive */
+  @media (max-width: 768px) { .seasonal-header { min-height: 60vh; } .season-grid { grid-template-columns: 1fr; } }
+</style>
+{% endblock %}
+
+{% block navmiddle %}
+<li class="nav-item"><a class="nav-link" href="/bookbus">Book Bus</a></li>
+<li class="nav-item"><a class="nav-link" href="/bookflight">Book Flight</a></li>
+<li class="nav-item active"><a class="nav-link" href="#">Seasons</a></li>
+{% endblock %}
+
+{% block navbottom %}
+<div class="dropdown" style="margin-right: 1rem;">
+  <a class="btn btn-outline-light dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Menu</a>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><a class="dropdown-item" href="/profile"><i class="fas fa-user"></i> Profile</a></li>
+    <li><a class="dropdown-item" href="/dashboard"><i class="fas fa-chart-bar"></i> Dashboard</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+  </ul>
+</div>
+{% endblock %}
+
+{% block cardsblock %}
+<!-- Particles Background -->
+<div id="particles-js" class="particles-container"></div>
+
+<!-- Hero Header -->
+<div class="seasonal-header">
+  <div class="container">
+    <h1>Seasonal Travel Intelligence</h1>
+    <p>Discover peak travel seasons, visitor trends, and optimal destinations</p>
+    <div class="row justify-content-center mt-4 g-3">
+      <div class="col-md-4 col-sm-6">
+        <div class="glass-card text-center">
+          <div class="count-up" data-target="{{ data|length|default:0 }}">0</div>
+          <small>Active Seasons</small>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6">
+        <div class="glass-card text-center">
+          <div class="count-up" data-total="{{ data|join:','|addslashes }}">0</div>
+          <small>Total Visitors (K)</small>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6">
+        <div class="glass-card text-center">
+          <div class="count-up" data-peak="{{ labels|slice:'0:1'|first|default:'Peak' }}">Peak</div>
+          <small>Top Season</small>
+        </div>
+      </div>
+    </div>
+    <div class="peak-alert mt-4 p-3 rounded glass-card">
+      <i class="fas fa-chart-line me-2"></i>
+      <strong>{{ labels|slice:'0:1'|first|default:'Current Peak' }} season is trending!</strong>
+    </div>
+  </div>
+
+</div>
+
+<div class="container py-5">
+  <!-- Dynamic Season Cards -->
+  <div class="season-grid">
+    {% for idx in "123456"|make_list %}
+    {% if forloop.counter0 < labels|length and forloop.counter0 < data|length %}
+    <div class="season-item glass-card" data-season="{{ labels|slice:forloop.counter0|first }}" data-value="{{ data|slice:forloop.counter0|first }}">
+      <div class="season-icon seasonal-emoji" data-season="{{ labels|slice:forloop.counter0|first|lower }}"></div>
+      <div class="season-name">{{ labels|slice:forloop.counter0|first }}</div>
+      <div class="season-value" data-num="{{ data|slice:forloop.counter0|first }}"><span class="num">0</span>K</div>
+      <div class="progress-bar">
+        <div class="progress-fill" data-progress="{{ data|slice:forloop.counter0|first }}"></div>
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+
+  <!-- Tips Carousel -->
+  <div class="container py-5">
+    <h3 class="text-center mb-4" style="color: white;">Seasonal Travel Tips</h3>
+    <div class="tips-carousel">
+      <div class="tip-card glass-card p-4">
+        <h5>🌸 Spring</h5>
+        <p>Perfect for hill stations. Book early for cherry blossoms!</p>
+      </div>
+      <div class="tip-card glass-card p-4">
+        <h5>☀️ Summer</h5>
+        <p>Head to beaches or hills. Carry sunscreen & hydration.</p>
+      </div>
+      <div class="tip-card glass-card p-4">
+        <h5>🍂 Autumn</h5>
+        <p>Festivals galore! Ideal for cultural tours.</p>
+      </div>
+      <div class="tip-card glass-card p-4">
+        <h5>❄️ Winter</h5>
+        <p>Snow adventures! Layer up for northern trips.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA Section -->
+  <div class="cta-section container py-5">
+    <h3 style="color: white;">Ready to Travel?</h3>
+    <button class="cta-btn me-3" onclick="window.location.href='/bookbus'">Book Bus</button>
+    <button class="cta-btn" onclick="window.location.href='/bookflight'">Book Flight</button>
+  </div>
+
+  <!-- Enhanced Chart Section -->
+  <div class="chart-wrapper text-center container py-5">
+    <h2 style="color: white; margin-bottom: 2rem;">Seasonal Trends Radar</h2>
+    <canvas id="seasonChart" height="400"></canvas>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+<script>
+  // Particles.js
+  particlesJS('particles-js', {
+    particles: { number: { value: 80 }, color: { value: '#00d4ff' }, shape: { type: 'circle' }, opacity: { value: 0.5 }, size: { value: 3 }, move: { speed: 1 } },
+    interactivity: { detect_on: 'canvas', events: { onhover: { enable: true, mode: 'repulse' } } }
+  });
+
+  // Chart.js - Safe JSON
+  const labels = {{ labels|safe }};
+  const data = {{ data|safe }};
+  const ctx = document.getElementById('seasonChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'radar',
+    data: {
+      labels: labels,
+      datasets: [{
+        data: data,
+        backgroundColor: 'rgba(255,255,255,0.1)',
+        borderColor: ['#ff6b6b', '#48dbfb', '#1dd1a1', '#a55eea', '#feca57', '#ff9ff3'],
+        borderWidth: 3,
+        pointBackgroundColor: ['#ff6b6b', '#48dbfb', '#1dd1a1', '#a55eea', '#feca57', '#ff9ff3'],
+        pointHoverBackgroundColor: '#fff',
+        pointBorderWidth: 0,
+        tension: 0.4
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: { r: { beginAtZero: true, max: Math.max(...data) * 1.1, grid: { color: 'rgba(255,255,255,0.2)' }, pointLabels: { color: 'white' }, angleLines: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: 'white', backdropColor: 'transparent' } } },
+      plugins: { legend: { position: 'top', labels: { color: 'white', padding: 20 } } },
+      animation: { duration: 3000 }
+    }
+  });
+
+  // Season emojis map
+  const emojiMap = {
+    'spring': '🌸', 'summer': '☀️', 'autumn': '🍂', 'winter': '❄️', 'monsoon': '🌧️', 'peak': '⭐'
+  };
+  document.querySelectorAll('.seasonal-emoji').forEach(icon => {
+    const season = icon.dataset.season.toLowerCase();
+    icon.textContent = emojiMap[season] || '🌟';
+  });
+
+  // Animate card values & progress
+  document.querySelectorAll('.season-item').forEach((card, index) => {
+    const valueEl = card.querySelector('.num');
+    const progressFill = card.querySelector('.progress-fill');
+    const value = parseFloat(card.dataset.value);
+    const maxValue = Math.max(...data);
+    const progress = (value / maxValue * 100);
+
+    // Count up
+    let count = 0;
+    const timer = setInterval(() => {
+      count += value / 50;
+      valueEl.textContent = Math.floor(count);
+      if (count >= value) {
+        valueEl.textContent = value;
+        clearInterval(timer);
+      }
+    }, 30);
+
+    // Progress anim (delayed)
+    setTimeout(() => {
+      progressFill.style.width = progress + '%';
+    }, 500);
+  });
+
+  // Total visitors sum
+  const totalData = data.reduce((a, b) => a + b, 0);
+  const totalEl = document.querySelector('[data-total]');
+  let totalCount = 0;
+  const totalTimer = setInterval(() => {
+    totalCount += totalData / 100;
+    totalEl.textContent = Math.floor(totalCount);
+    if (totalCount >= totalData) {
+      totalEl.textContent = totalData;
+      clearInterval(totalTimer);
+    }
+  }, 20);
+
+  // Peak season highlight
+  const peakSeason = labels[0] || 'Peak';
+  document.querySelector('[data-peak]').textContent = peakSeason;
+
+  // Confetti for peak season card (using canvas)
+  const peakCard = document.querySelector(`[data-season="${peakSeason}"]`);
+  if (peakCard) {
+    peakCard.addEventListener('mouseenter', () => {
+      peakCard.style.filter = 'drop-shadow(0 0 20px gold)';
+    });
+  }
+
+</script>
+{% endblock %}  
+

@@ -1,0 +1,638 @@
+{% extends 'bookbuspage.html' %}
+{% block topdivblock %}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    * {
+        box-sizing: border-box;
+        max-width: 100%;
+    }
+    html, body {
+        overflow-x: hidden;
+    }
+    .container {
+        max-width: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideInLeft {
+        from { opacity: 0; transform: translateX(-30px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+    @keyframes glow {
+        0%, 100% { box-shadow: 0 0 20px rgba(0,212,255,0.3); }
+        50% { box-shadow: 0 0 40px rgba(0,212,255,0.6); }
+    }
+    body {
+        background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+    }
+    .seasonal-header {
+        background: linear-gradient(135deg, rgba(15,12,41,0.95), rgba(48,43,99,0.95)), url('../static/images/hbg2.jpg');
+        background-size: cover;
+        background-position: center;
+        padding: 80px 0;
+        text-align: center;
+        border-radius: 0 0 80px 80px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .season-card {
+        background: rgba(255,255,255,0.08);
+        backdrop-filter: blur(15px);
+        border-radius: 25px;
+        padding: 35px 25px;
+        margin-bottom: 25px;
+        border: 1px solid rgba(255,255,255,0.1);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
+        overflow: hidden;
+        animation: fadeInUp 0.8s ease-out forwards;
+        opacity: 0;
+    }
+    .season-card:nth-child(1) { animation-delay: 0.1s; }
+    .season-card:nth-child(2) { animation-delay: 0.2s; }
+    .season-card:nth-child(3) { animation-delay: 0.3s; }
+    .season-card:nth-child(4) { animation-delay: 0.4s; }
+    .season-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+        transition: 0.5s;
+    }
+    .season-card:hover::before {
+        left: 100%;
+    }
+    .season-card:hover {
+        transform: translateY(-15px) scale(1.02);
+        box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+        border-color: rgba(0,212,255,0.5);
+    }
+    .season-icon {
+        font-size: 4rem;
+        margin-bottom: 20px;
+        animation: pulse 2s ease-in-out infinite, float 3s ease-in-out infinite;
+    }
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+    }
+    .season-name {
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin-bottom: 15px;
+        background: linear-gradient(45deg, #00d4ff, #fff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .season-population {
+        font-size: 3.5rem;
+        font-weight: 800;
+        background: linear-gradient(45deg, #00d4ff, #00ff88, #ffdd00);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 30px rgba(0,212,255,0.3);
+    }
+    .section-title {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 25px;
+        background: linear-gradient(45deg, #00d4ff, #00ff88);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .chart-container {
+        background: rgba(255,255,255,0.05);
+        backdrop-filter: blur(10px);
+        border-radius: 25px;
+        padding: 35px;
+        margin: 30px 0;
+        border: 1px solid rgba(255,255,255,0.1);
+        animation: fadeInUp 0.8s ease-out forwards;
+    }
+    .tip-card {
+        background: rgba(255,255,255,0.08);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 30px;
+        margin-bottom: 20px;
+        border: 1px solid rgba(255,255,255,0.1);
+        transition: all 0.3s ease;
+    }
+    .tip-card:hover {
+        transform: translateX(10px);
+        background: rgba(255,255,255,0.12);
+    }
+    .tip-icon {
+        font-size: 3rem;
+        margin-bottom: 15px;
+    }
+    footer{
+        background: #0a0a15;
+        height: auto;
+        width: 100vw;
+        font-family: "Open Sans"; 
+        padding-top:40px;
+        color: #fff;
+    }
+    .gradient-text {
+        background: linear-gradient(45deg, #00d4ff, #00ff88, #ffdd00);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .glow-border {
+        box-shadow: 0 0 30px rgba(0,212,255,0.3);
+    }
+    .stats-card-enhanced {
+        background: rgba(255,255,255,0.1);
+        backdrop-filter: blur(15px);
+        border-radius: 20px;
+        padding: 25px;
+        margin-bottom: 20px;
+        border: 1px solid rgba(255,255,255,0.15);
+        transition: all 0.4s ease;
+        animation: fadeInUp 0.6s ease-out forwards;
+        opacity: 0;
+    }
+    .stats-card-enhanced:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+        animation: glow 2s ease-in-out infinite;
+    }
+    .stats-number-enhanced {
+        font-size: 2.8rem;  
+        font-weight: 800;
+        background: linear-gradient(45deg, #00d4ff, #00ff88);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .growth-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 6px 15px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 600;
+    }
+    .growth-positive {
+        background: rgba(40, 167, 69, 0.2);
+        color: #28a745;
+    }
+    .growth-negative {
+        background: rgba(220, 53, 69, 0.2);
+        color: #dc3545;
+    }
+    .peak-badge {
+        background: linear-gradient(45deg, #ffd700, #ff8c00);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: bold;
+    }
+    .season-metrics {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .metric-item {
+        text-align: center;
+    }
+    .metric-value {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #00d4ff;
+    }
+    .metric-label {
+        font-size: 0.8rem;
+        opacity: 0.7;
+    }
+    .monthly-bar {
+        transition: all 0.3s ease;
+    }
+    .monthly-bar:hover {
+        filter: brightness(1.3);
+        transform: scaleY(1.05);
+    }
+    .comparison-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px;
+        background: rgba(255,255,255,0.05);
+        border-radius: 15px;
+        margin-bottom: 15px;
+        transition: all 0.3s ease;
+    }
+    .comparison-row:hover {
+        background: rgba(255,255,255,0.1);
+        transform: translateX(10px);
+    }
+    .progress-bar-season {
+        height: 8px;
+        border-radius: 4px;
+        background: rgba(255,255,255,0.1);
+        overflow: hidden;
+    }
+    .progress-fill {
+        height: 100%;
+        border-radius: 4px;
+        transition: width 1s ease-out;
+    }
+</style>
+{% endblock %}
+
+{% block navmiddle %}
+<li class="nav-item">
+  <a class="nav-link" href="/bookbus">Book Bus</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="/bookflight">Book Flight</a>
+</li>
+{% endblock %}
+
+{% block navbottom %}
+<div class="dropdown ms-lg-auto">
+    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown">
+        Menu
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end">
+        <li><a class="dropdown-item" href="/profile"><i class="fas fa-user"></i> Profile</a></li>
+        <li><a class="dropdown-item" href="/dashboard"><i class="fas fa-chart-bar"></i> Dashboard</a></li>
+        <li><a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+    </ul>
+</div>
+{% endblock %}
+
+{% block cardsblock %}
+<!-- Seasonal Dashboard Header -->
+<div class="seasonal-header">
+    <h1 style="font-size: 3rem; font-weight: 800; animation: fadeInUp 0.8s ease-out;"><i class="fas fa-calendar-check"></i> <span class="gradient-text">Seasonal Analysis</span></h1>
+    <p class="lead" style="font-size: 1.3rem; opacity: 0.9;">Tourist visits &amp; travel trends by seasons</p>
+    
+<!-- Quick Stats Enhanced -->
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-3">
+                <div class="stats-card-enhanced" style="animation-delay: 0.1s;">
+                    <div class="stats-number-enhanced">{% if data %}{{ data.0|default:0|add:data.1|default:0|add:data.2|default:0 }}{% else %}1250{% endif %}K</div>
+                    <div style="opacity: 0.8;">Total Tourists</div>
+                    <div class="growth-badge growth-positive mt-2">
+                        <i class="fas fa-arrow-up"></i> +12.5%
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-card-enhanced" style="animation-delay: 0.2s;">
+                    <div class="stats-number-enhanced">{% if labels %}{{ labels|length }}{% else %}4{% endif %}</div>
+                    <div style="opacity: 0.8;">Seasons</div>
+                    <div class="peak-badge mt-2">All Active</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-card-enhanced" style="animation-delay: 0.3s;">
+                    <div class="stats-number-enhanced">12</div>
+                    <div style="opacity: 0.8;">Months</div>
+                    <div class=&quot:mt-2" style="color: #00d4ff; font-size: 0.9rem;"><i class="fas fa-calendar"></i> Year Round</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-card-enhanced" style="animation-delay: 0.4s;">
+                    <div class="stats-number-enhanced">85%</div>
+                    <div style="opacity: 0.8;">Avg Occupancy</div>
+                    <div class="growth-badge growth-positive mt-2">
+                        <i class="fas fa-arrow-up"></i> +5.2%
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" style="padding: 50px 20px;">
+<!-- All 4 Season Cards -->
+    <div class="row mb-5">
+        <div class="col-lg-3 col-md-6">
+            <div class="season-card" style="border-top: 4px solid #ff6b6b;">
+                <div class="season-icon text-center">☀️</div>
+                <div class="season-name text-center">Summer</div>
+                <div class="season-population text-center">{% if data %}{{ data.0|default:0 }}{% else %}450{% endif %}K</div>
+                <div style="opacity: 0.7; text-align: center; margin-top: 10px;">tourists visit</div>
+                <div style="margin-top: 15px; padding: 12px; background: rgba(255,107,107,0.2); border-radius: 12px;">
+                    <strong>🏔️ Best for:</strong> Hill stations, beaches
+                </div>
+                <div class="season-metrics">
+                    <div class="metric-item">
+                        <div class="metric-value">+8%</div>
+                        <div class="metric-label">Growth</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-value">Apr-Jun</div>
+                        <div class="metric-label">Months</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="season-card" style="border-top: 4px solid #48dbfb;">
+                <div class="season-icon text-center">🌧️</div>
+                <div class="season-name text-center">Monsoon</div>
+                <div class="season-population text-center">{% if data %}{{ data.1|default:0 }}{% else %}320{% endif %}K</div>
+                <div style="opacity: 0.7; text-align: center; margin-top: 10px;">tourists visit</div>
+                <div style="margin-top: 15px; padding: 12px; background: rgba(72,219,251,0.2); border-radius: 12px;">
+                    <strong>💦 Best for:</strong> Waterfalls, adventure
+                </div>
+                <div class="season-metrics">
+                    <div class="metric-item">
+                        <div class="metric-value">-12%</div>
+                        <div class="metric-label">Growth</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-value">Jul-Sep</div>
+                        <div class="metric-label">Months</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="season-card" style="border-top: 4px solid #1dd1a1;">
+                <div class="season-icon text-center">🍂</div>
+                <div class="season-name text-center">Autumn</div>
+                <div class="season-population text-center">{% if data %}{{ data.2|default:0 }}{% else %}380{% endif %}K</div>
+                <div style="opacity: 0.7; text-align: center; margin-top: 10px;">tourists visit</div>
+                <div style="margin-top: 15px; padding: 12px; background: rgba(29,209,161,0.2); border-radius: 12px;">
+                    <strong>🗺️ Best for:</strong> All destinations
+                </div>
+                <div class="season-metrics">
+                    <div class="metric-item">
+                        <div class="metric-value">+15%</div>
+                        <div class="metric-label">Growth</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-value">Oct-Nov</div>
+                        <div class="metric-label">Months</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="season-card" style="border-top: 4px solid #a55eea;">
+                <div class="season-icon text-center">❄️</div>
+                <div class="season-name text-center">Winter</div>
+                <div class="season-population text-center">480K</div>
+                <div style="opacity: 0.7; text-align: center; margin-top: 10px;">tourists visit</div>
+                <div style="margin-top: 15px; padding: 12px; background: rgba(165,94,234,0.2); border-radius: 12px;">
+                    <strong>⛷️ Best for:</strong> Skiing, snow tourism
+                </div>
+                <div class="season-metrics">
+                    <div class="metric-item">
+                        <div class="metric-value">+22%</div>
+                        <div class="metric-label">Growth</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-value">Dec-Feb</div>
+                        <div class="metric-label">Months</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Monthly Bar Chart &amp; Season Comparison -->
+    <div class="row">
+        <!-- Monthly Trends Bar Chart -->
+        <div class="col-lg-6">
+            <div class="chart-container">
+                <h3 class="section-title"><i class="fas fa-chart-bar"></i> Monthly Tourist Trends</h3>
+                <canvas id="monthly-bar-chart" style="max-height: 300px;"></canvas>
+                <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+                <script>
+                    var monthlyData = [65, 72, 85, 90, 78, 45, 32, 38, 55, 88, 95, 82];
+                    var monthLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                    var monthlyConfig = {
+                        type: 'bar',
+                        data: {
+                            labels: monthLabels,
+                            datasets: [{
+                                label: 'Tourists (in thousands)',
+                                data: monthlyData,
+                                backgroundColor: monthlyData.map(function(v) {
+                                    return v > 80 ? '#28a745' : v > 50 ? '#00d4ff' : '#ff6b6b';
+                                }),
+                                borderWidth: 0,
+                                borderRadius: 8
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    grid: { color: 'rgba(255,255,255,0.1)' },
+                                    ticks: { color: 'rgba(255,255,255,0.7)' }
+                                },
+                                x: {
+                                    grid: { display: false },
+                                    ticks: { color: 'rgba(255,255,255,0.7)' }
+                                }
+                            },
+                            plugins: {
+                                legend: { display: false }
+                            },
+                            animation: {
+                                duration: 1500,
+                                easing: 'easeOutQuart'
+                            }
+                        }
+                    };
+                    window.onload = function() {
+                        var ctx = document.getElementById('monthly-bar-chart').getContext('2d');
+                        if(ctx) new Chart(ctx, monthlyConfig);
+                    };
+                </script>
+            </div>
+        </div>
+        
+        <!-- Season Comparison with Progress Bars -->
+        <div class="col-lg-6">
+            <div class="chart-container">
+                <h3 class="section-title"><i class="fas fa-balance-scale"></i> Season Comparison</h3>
+                <div class="comparison-row">
+                    <div><strong>☀️ Summer</strong></div>
+                    <div style="flex-grow: 1; margin: 0 20px;">
+                        <div class="progress-bar-season">
+                            <div class="progress-fill" style="width: 75%; background: linear-gradient(90deg, #ff6b6b, #ee5a5a);"></div>
+                        </div>
+                    </div>
+                    <div>75%</div>
+                </div>
+                <div class="comparison-row">
+                    <div><strong>🌧️ Monsoon</strong></div>
+                    <div style="flex-grow: 1; margin: 0 20px;">
+                        <div class="progress-bar-season">
+                            <div class="progress-fill" style="width: 53%; background: linear-gradient(90deg, #48dbfb, #2ec4b6);"></div>
+                        </div>
+                    </div>
+                    <div>53%</div>
+                </div>
+                <div class="comparison-row">
+                    <div><strong>🍂 Autumn</strong></div>
+                    <div style="flex-grow: 1; margin: 0 20px;">
+                        <div class="progress-bar-season">
+                            <div class="progress-fill" style="width: 63%; background: linear-gradient(90deg, #1dd1a1, #10ac84);"></div>
+                        </div>
+                    </div>
+                    <div>63%</div>
+                </div>
+                <div class="comparison-row">
+                    <div><strong>❄️ Winter</strong></div>
+                    <div style="flex-grow: 1; margin: 0 20px;">
+                        <div class="progress-bar-season">
+                            <div class="progress-fill" style="width: 80%; background: linear-gradient(90deg, #a55eea, #8854d0);"></div>
+                        </div>
+                    </div>
+                    <div>80%</div>
+                </div>
+                <div class=&quot:mt-4 text-center">
+                    <div class="peak-badge" style="font-size: 1.2rem;">🏆 Peak Season: Winter (Dec-Feb)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart Section -->
+    <div class="chart-container glow-border">
+        <h3 class="section-title text-center"><i class="fas fa-chart-pie"></i> Seasonal Distribution</h3>
+        <div style="max-height: 450px;">
+            <canvas id="season-chart"></canvas>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+        <script>
+            var seasonConfig = {
+                type: 'pie',
+                data: {
+                    datasets: [{
+                        data: {{ data|safe }},
+                        backgroundColor: [
+                            '#ff6b6b', '#48dbfb', '#1dd1a1', '#feca57', '#5f27cd', '#ff9ff3'
+                        ],
+                        borderWidth: 3,
+                        borderColor: 'rgba(255,255,255,0.2)'
+                    }],
+                    labels: {{ labels|safe }}
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { 
+                            position: 'bottom', 
+                            labels: { 
+                                color: 'white', 
+                                padding: 25,
+                                font: { size: 14 }
+                            } 
+                        }
+                    },
+                    animation: {
+                        animateScale: true,
+                        animateRotate: true
+                    }
+                }
+            };
+            window.onload = function() {
+                var ctx = document.getElementById('season-chart').getContext('2d');
+                new Chart(ctx, seasonConfig);
+            };
+        </script>
+    </div>
+
+    <!-- Travel Tips Section -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <h3 class="section-title"><i class="fas fa-lightbulb"></i> Best Time to Travel</h3>
+        </div>
+        <div class="col-md-4">
+            <div class="tip-card">
+                <div class="tip-icon">🏖️</div>
+                <h5>Beaches</h5>
+                <p style="opacity: 0.8;">October - March for best weather</p>
+                <div style="background: linear-gradient(45deg, #00d4ff, #0099ff); padding: 8px 20px; border-radius: 20px; display: inline-block; font-size: 0.9rem;">Best Season</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="tip-card">
+                <div class="tip-icon">🏔️</div>
+                <h5>Mountains</h5>
+                <p style="opacity: 0.8;">March - June, December - February</p>
+                <div style="background: linear-gradient(45deg, #00d4ff, #0099ff); padding: 8px 20px; border-radius: 20px; display: inline-block; font-size: 0.9rem;">Best Season</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="tip-card">
+                <div class="tip-icon">🛕</div>
+                <h5>Heritage Sites</h5>
+                <p style="opacity: 0.8;">October - March for comfortable weather</p>
+                <div style="background: linear-gradient(45deg, #00d4ff, #0099ff); padding: 8px 20px; border-radius: 20px; display: inline-block; font-size: 0.9rem;">Best Season</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Season Comparison -->
+    <div class="chart-container mt-5">
+        <h3 class="section-title text-center"><i class="fas fa-globe"></i> Popular Destinations by Season</h3>
+        <div class="row text-center mt-4">
+            <div class="col-md-3">
+                <div style="padding: 20px;">
+                    <div style="font-size: 2.5rem;">🗼</div>
+                    <h5>Agra</h5>
+                    <p style="opacity: 0.7;">Oct - Mar</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div style="padding: 20px;">
+                    <div style="font-size: 2.5rem;">🏖️</div>
+                    <h5>Goa</h5>
+                    <p style="opacity: 0.7;">Oct - May</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div style="padding: 20px;">
+                    <div style="font-size: 2.5rem;">🏔️</div>
+                    <h5>Manali</h5>
+                    <p style="opacity: 0.7;">Dec - Feb</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div style="padding: 20px;">
+                    <div style="font-size: 2.5rem;">🌊</div>
+                    <h5>Kerla</h5>
+                    <p style="opacity: 0.7;">Sep - Mar</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-content">
+        <h3>Smart Tours</h3>
+        <p>Your gateway to elegant travel experiences</p>
+            <p>designed and created by nargis</p>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 Smart Tours. Premium design by BLACKBOXAI.</p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock %}

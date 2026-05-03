@@ -1,0 +1,207 @@
+{% block block1 %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Create Own Tour - Smart Tours</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #fff;
+        }
+        .tour-header {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('../static/images/hbg2.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 60px 0;
+            text-align: center;
+        }
+        .place-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .place-card:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-5px);
+        }
+        .place-card.selected {
+            border-color: #00d4ff;
+            background: rgba(0,212,255,0.2);
+        }
+        .place-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .place-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+        .place-info {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        .input-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        .form-control {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 10px;
+        }
+        .form-control:focus {
+            background: rgba(255,255,255,0.15);
+            border-color: #00d4ff;
+            color: white;
+            box-shadow: 0 0 15px rgba(0,212,255,0.3);
+        }
+        .form-control::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+        .btn-submit {
+            background: linear-gradient(45deg, #00d4ff, #295AF7);
+            border: none;
+            padding: 15px 50px;
+            border-radius: 30px;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        .btn-submit:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0,212,255,0.4);
+        }
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #00d4ff;
+        }
+    </style>
+{% endblock %}
+
+{% block block2 %}
+<div class="fluid-container">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/home"><i class="fas fa-plane-departure me-2"></i>Smart Tours</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="/home">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="/tours">Tours</a></li>
+        <li class="nav-item"><a class="nav-link" href="/bookbus">Bus</a></li>
+        <li class="nav-item"><a class="nav-link" href="/bookflight">Flight</a></li>
+        <li class="nav-item"><a class="nav-link" href="/seasonsdashboard">Seasons</a></li>
+        <li class="nav-item"><a class="nav-link" href="/adventures">Adventures</a></li>
+        <li class="nav-item"><a class="nav-link active" href="/createtour">Create Tour</a></li>
+      </ul>
+      <div class="dropdown ms-lg-auto">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Menu</a>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a class="dropdown-item" href="/profile"><i class="fas fa-user me-2"></i>Profile</a></li>
+          <li><a class="dropdown-item" href="/dashboard"><i class="fas fa-chart-bar me-2"></i>Dashboard</a></li>
+          <li><a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+</div>
+{% endblock %}
+
+{% block block3 %}
+<div class="tour-header">
+    <h1><i class="fas fa-map-marked-alt"></i> Create Your Own Tour</h1>
+    <p class="lead">Plan your perfect trip with custom destinations</p>
+</div>
+
+<div class="container" style="padding: 40px 20px;">
+    <form method="POST" action="{% url 'sam' %}">
+        {% csrf_token %}
+        
+        <!-- Budget & Days Inputs -->
+        <div class="row mb-5">
+            <div class="col-md-6">
+                <div class="input-card">
+                    <h4><i class="fas fa-calendar-day"></i> Number of Days</h4>
+                    <p style="opacity: 0.7; margin-bottom: 15px;">How many days do you want to spend on your tour?</p>
+                    <input type="text" name="num" class="form-control" placeholder="Enter number of days" style="font-size: 1.2rem;">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="input-card">
+                    <h4><i class="fas fa-wallet"></i> Budget</h4>
+                    <p style="opacity: 0.7; margin-bottom: 15px;">Maximum budget you want to spend?</p>
+                    <input type="text" name="budget" class="form-control" placeholder="Enter budget in rupees" style="font-size: 1.2rem;">
+                </div>
+            </div>
+        </div>
+
+        <!-- Destination Selection -->
+        <div class="input-card mb-4">
+            <h4 class="section-title"><i class="fas fa-place-of-worship"></i> Select Destinations</h4>
+            <p style="opacity: 0.8; margin-bottom: 25px;">Click on places you want to visit (select multiple)</p>
+            <div class="row">
+                {% for place in places %}
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <label class="place-card" onclick="toggleSelect(this)">
+                        <div class="place-icon">
+                            {% if forloop.counter == 1 %}🏖️
+                            {% elif forloop.counter == 2 %}🏔️
+                            {% elif forloop.counter == 3 %}🗼
+                            {% elif forloop.counter == 4 %}🛕
+                            {% elif forloop.counter == 5 %}🌊
+                            {% elif forloop.counter == 6 %}🌸
+                            {% elif forloop.counter == 7 %}🏯
+                            {% else %}🗺️{% endif %}
+                        </div>
+                        <div class="place-name">{{place.place}}</div>
+                        <div class="place-info">{{place.time}} days • ₹{{place.cost}}</div>
+                        <input type="checkbox" value="{{place.place}}" name="{{place.place}}" style="display: none;">
+                    </label>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="text-center">
+            <button type="submit" class="btn-submit">
+                <i class="fas fa-route"></i> Create My Tour
+            </button>
+        </div>
+    </form>
+</div>
+
+<script>
+    function toggleSelect(element) {
+        element.classList.toggle('selected');
+        var checkbox = element.querySelector('input[type="checkbox"]');
+        checkbox.checked = !checkbox.checked;
+    }
+</script>
+{% endblock %}
+
+{% block block4 %}
+{% endblock %}
+
+{% block bloc4%}
+<br>
+{% endblock %}

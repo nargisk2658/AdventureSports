@@ -1,0 +1,21 @@
+{% extends 'homepage.html' %}
+
+{% block block1 %}
+{{ block.super }}
+<title>Smart Tours - Premium Travel Booking</title>
+<style>
+    /* Add any home-specific styles here if needed */
+    .hero-section {
+        background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("../static/images/mbg1.jpg");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
+</style>
+{% endblock %}
+
+{% block block2 %}
+{{ block.super }}
+{% endblock %}
+
+{% block hero_search %}{% endblock %}

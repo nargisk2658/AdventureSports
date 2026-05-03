@@ -1,0 +1,534 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+{% block headblock %}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <title>Smart Tours | Bus Booking</title>
+  {% block styleblock %}
+  <style>
+    :root {
+      --bg-primary: #081120;
+      --bg-secondary: #0f172a;
+      --panel: rgba(15, 23, 42, 0.72);
+      --panel-border: rgba(148, 163, 184, 0.18);
+      --text-main: #e2e8f0;
+      --text-soft: #94a3b8;
+      --primary: #38bdf8;
+      --accent: #8b5cf6;
+      --success: #22c55e;
+      --warning: #f59e0b;
+      --shadow: 0 30px 60px rgba(2, 6, 23, 0.45);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      color: var(--text-main);
+      background:
+        radial-gradient(circle at top, rgba(56, 189, 248, 0.12), transparent 35%),
+        linear-gradient(180deg, var(--bg-secondary), var(--bg-primary));
+      min-height: 100vh;
+    }
+
+    .navbar {
+      background: rgba(8, 17, 32, 0.88) !important;
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+      padding: 0.95rem 0;
+    }
+
+    .navbar-brand {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.7rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--primary), #ffffff, var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-link {
+      color: var(--text-main) !important;
+      font-weight: 500;
+      border-radius: 999px;
+      padding: 0.75rem 1.1rem !important;
+      transition: 0.3s ease;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: #fff !important;
+      background: rgba(56, 189, 248, 0.14);
+    }
+
+    .menu-btn {
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: #fff;
+    }
+
+    .dropdown-menu {
+      background: rgba(8, 17, 32, 0.96);
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      border-radius: 18px;
+    }
+
+    .dropdown-item {
+      color: var(--text-main);
+    }
+
+    .dropdown-item:hover {
+      background: rgba(56, 189, 248, 0.12);
+      color: #fff;
+    }
+
+    .top-div {
+      position: relative;
+      overflow: hidden;
+      min-height: 54vh;
+      display: flex;
+      align-items: center;
+      background:
+        linear-gradient(rgba(8, 17, 32, 0.74), rgba(8, 17, 32, 0.9)),
+        url("{% static 'images/bg4.jpg' %}") center/cover no-repeat;
+    }
+
+    .top-div::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+      transform: translateX(-100%);
+      animation: shimmer 8s linear infinite;
+    }
+
+    @keyframes shimmer {
+      100% { transform: translateX(100%); }
+    }
+
+    .hero-shell,
+    .hero-search,
+    .bus-card,
+    .mini-stat,
+    .route-chip {
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-shell {
+      position: relative;
+      z-index: 1;
+      border-radius: 32px;
+      padding: 2.5rem;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 0.55rem;
+      align-items: center;
+      padding: 0.5rem 0.9rem;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.12);
+      color: #bfdbfe;
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero-shell h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(2.8rem, 6vw, 4.8rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+
+    .hero-shell p {
+      max-width: 720px;
+      color: var(--text-soft);
+      font-size: 1.05rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-search {
+      border-radius: 26px;
+      padding: 1rem;
+    }
+
+    .hero-search .form-control,
+    .hero-search .input-group-text {
+      background: rgba(148, 163, 184, 0.08);
+      border: 1px solid rgba(148, 163, 184, 0.12);
+      color: #fff;
+      min-height: 54px;
+    }
+
+    .hero-search .form-control::placeholder {
+      color: #cbd5e1;
+    }
+
+    .hero-search .form-control:focus {
+      box-shadow: none;
+      border-color: rgba(56, 189, 248, 0.45);
+      background: rgba(148, 163, 184, 0.1);
+      color: #fff;
+    }
+
+    .search-btn,
+    .seat-btn {
+      border: 0;
+      border-radius: 999px;
+      color: #fff;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      transition: 0.3s ease;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      box-shadow: 0 16px 35px rgba(56, 189, 248, 0.22);
+    }
+
+    .search-btn {
+      min-height: 54px;
+      padding: 0 1.5rem;
+      width: 100%;
+    }
+
+    .seat-btn {
+      padding: 0.85rem 1.2rem;
+    }
+
+    .search-btn:hover,
+    .seat-btn:hover {
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .route-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-radius: 999px;
+      padding: 0.7rem 1rem;
+      color: #cbd5e1;
+      font-size: 0.95rem;
+      margin: 0.35rem 0.35rem 0 0;
+    }
+
+    .stats-row {
+      margin-top: 1.5rem;
+    }
+
+    .mini-stat {
+      border-radius: 22px;
+      padding: 1.2rem;
+      height: 100%;
+    }
+
+    .mini-stat h3 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.8rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .listing-section {
+      padding: 2rem 0 5rem;
+    }
+
+    .section-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-subtitle {
+      color: var(--text-soft);
+      max-width: 760px;
+    }
+
+    .bus-card {
+      border-radius: 28px;
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+      transition: 0.3s ease;
+    }
+
+    .bus-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 35px 80px rgba(2, 6, 23, 0.55);
+    }
+
+    .bus-brand {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .bus-brand img {
+      width: 84px;
+      height: 84px;
+      object-fit: cover;
+      border-radius: 22px;
+      border: 1px solid rgba(148, 163, 184, 0.14);
+      background: rgba(255, 255, 255, 0.04);
+      padding: 0.4rem;
+    }
+
+    .bus-brand h3 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.35rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .travel-type {
+      color: #cbd5e1;
+      font-size: 0.95rem;
+    }
+
+    .metric-box {
+      background: rgba(148, 163, 184, 0.08);
+      border-radius: 22px;
+      padding: 1rem;
+      height: 100%;
+    }
+
+    .metric-label {
+      color: var(--text-soft);
+      font-size: 0.92rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .metric-value {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .metric-subtext {
+      color: #cbd5e1;
+      font-size: 0.92rem;
+      margin-top: 0.3rem;
+    }
+
+    .fare-box {
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.12), rgba(56, 189, 248, 0.12));
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      border-radius: 28px;
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+    }
+
+    footer {
+      border-top: 1px solid rgba(148, 163, 184, 0.12);
+      background: rgba(2, 6, 23, 0.82);
+      padding: 2rem 0;
+      text-align: center;
+      color: var(--text-soft);
+    }
+
+    @media (max-width: 991px) {
+      .top-div {
+        min-height: auto;
+        padding: 6rem 0 3rem;
+      }
+
+      .hero-shell {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+  {% endblock %}
+</head>
+{% endblock %}
+<body>
+{% block navtop %}
+<nav class="navbar navbar-expand-lg sticky-top navbar-dark">
+  <div class="container">
+    <a class="navbar-brand" href="/home"><i class="fas fa-bus-simple me-2"></i>Smart Tours</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#busNavbar" aria-controls="busNavbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="busNavbar">
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="/home">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="/tours">Tours</a></li>
+{% endblock %}
+{% block navmiddle %}
+        <li class="nav-item"><a class="nav-link active" href="/bookbus">Bus</a></li>
+        <li class="nav-item"><a class="nav-link" href="/bookflight">Flight</a></li>
+      </ul>
+{% endblock %}
+{% block navbottom %}
+      <div class="dropdown">
+        <a class="btn menu-btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fas fa-user-circle me-1"></i>Menu
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
+          <li><a class="dropdown-item" href="/profile"><i class="fas fa-user me-2"></i>Profile</a></li>
+          <li><a class="dropdown-item" href="/dashboard"><i class="fas fa-chart-line me-2"></i>Dashboard</a></li>
+          <li><hr class="dropdown-divider border-secondary"></li>
+          <li><a class="dropdown-item" href="/logout"><i class="fas fa-right-from-bracket me-2"></i>Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<section class="top-div">
+  <div class="container">
+    <div class="hero-shell">
+      <span class="eyebrow"><i class="fas fa-ticket"></i> Smart bus booking</span>
+      <h1>Find comfortable buses with clearer routes, prices, and schedule details.</h1>
+      <p>Search by departure city, destination, and date to quickly compare options and pick the best ride for your journey.</p>
+
+      <div class="hero-search mt-4">
+        <form method="POST" action="{% url 'busfilter' %}">
+          {% csrf_token %}
+          <div class="row g-3 align-items-center">
+            <div class="col-lg-3">
+              <input type="text" class="form-control" placeholder="From city" name="dep">
+            </div>
+            <div class="col-lg-3">
+              <input type="text" class="form-control" placeholder="To city" name="arr">
+            </div>
+            <div class="col-lg-3">
+              <input type="text" class="form-control" placeholder="DD/MM/YYYY" name="d">
+            </div>
+            <div class="col-lg-3">
+              <button class="search-btn" type="submit"><i class="fas fa-magnifying-glass me-2"></i>Search Buses</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="mt-4">
+        <span class="route-chip"><i class="fas fa-location-dot"></i>Trusted routes</span>
+        <span class="route-chip"><i class="fas fa-snowflake"></i>AC and sleeper details</span>
+        <span class="route-chip"><i class="fas fa-clock"></i>Quick time comparison</span>
+      </div>
+
+      <div class="row g-3 stats-row">
+        <div class="col-md-4">
+          <div class="mini-stat">
+            <h3>{{ buses|length }}</h3>
+            <p class="mb-0" style="color: var(--text-soft);">Bus options currently listed</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mini-stat">
+            <h3>Fast Search</h3>
+            <p class="mb-0" style="color: var(--text-soft);">Filter rides instantly using route and date.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mini-stat">
+            <h3>Seat Booking</h3>
+            <p class="mb-0" style="color: var(--text-soft);">Open a bus to view seats and continue checkout.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block cardsblock %}
+<section class="listing-section">
+  <div class="container">
+    <div class="mb-4">
+      <h2 class="section-title">Available Buses</h2>
+      <p class="section-subtitle">Each result now highlights operator, route timing, travel date, and fare in a cleaner card layout to help users decide faster.</p>
+    </div>
+
+    {% if buses %}
+      {% for bus in buses %}
+      <article class="bus-card">
+        <div class="row g-4 align-items-center">
+          <div class="col-xl-3">
+            <div class="bus-brand">
+              <img src="{% static 'images/buslogo.jpg' %}" alt="{{ bus.travels }}">
+              <div>
+                <h3>{{ bus.travels }}</h3>
+                <div class="travel-type">{{ bus.ac_sleeper }} | {{ bus.bus_num }}</div>
+                <div class="travel-type mt-1"><i class="fas fa-couch me-1"></i>{{ bus.seats_available }} seats available</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-xl-2">
+            <div class="metric-box">
+              <div class="metric-label">Departure</div>
+              <div class="metric-value">{{ bus.departure_timeHours }}:{{ bus.departure_timeMinutes }}</div>
+              <div class="metric-subtext">{{ bus.departure_palce }}</div>
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-xl-2">
+            <div class="metric-box">
+              <div class="metric-label">Journey Time</div>
+              <div class="metric-value">{{ bus.duration }}</div>
+              <div class="metric-subtext">Direct route timing</div>
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-xl-2">
+            <div class="metric-box">
+              <div class="metric-label">Arrival</div>
+              <div class="metric-value">{{ bus.arrival_timeHours }}:{{ bus.arrival_timeMinutes }}</div>
+              <div class="metric-subtext">{{ bus.arrival_place }}</div>
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-xl-1">
+            <div class="metric-box fare-box">
+              <div class="metric-label">Fare</div>
+              <div class="metric-value">INR {{ bus.fare }}</div>
+              <div class="metric-subtext">Best fare</div>
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-xl-1">
+            <div class="metric-box">
+              <div class="metric-label">Travel Day</div>
+              <div class="metric-value">{{ bus.day }}</div>
+              <div class="metric-subtext">{{ bus.date }}</div>
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-xl-1 d-flex justify-content-xl-end">
+            <a class="seat-btn w-100" href="/viewseats/{{ bus.travels }}">View Seats</a>
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    {% else %}
+      <div class="empty-state">
+        <h3 class="mb-3">No bus routes available right now</h3>
+        <p class="mb-0">Try a different route or date to discover more options.</p>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p class="mb-1">Smart Tours</p>
+    <p class="mb-0">Comfortable routes, cleaner booking, and a better travel experience.</p>
+  </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock %}
+</body>
+</html>

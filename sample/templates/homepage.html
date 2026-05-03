@@ -1,0 +1,665 @@
+{% block block1 %}
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <title>Smart Tours</title>
+  </head>
+  <style type="text/css">
+    /* CSS Variables for Modern Theme */
+    :root {
+        --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --secondary-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        --dark-gradient: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        --glass-bg: rgba(255, 255, 255, 0.1);
+        --glass-border: rgba(255, 255, 255, 0.2);
+        --primary-color: #667eea;
+        --accent-color: #38ef7d;
+        --text-light: #ffffff;
+        --text-muted: rgba(255, 255, 255, 0.8);
+    }
+    
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: var(--dark-gradient);
+        min-height: 100vh;
+        color: var(--text-light);
+        overflow-x: hidden;
+    }
+    
+    /* Modern Animated Navbar */
+    .navbar {
+        background: rgba(26, 26, 46, 0.95) !important;
+        backdrop-filter: blur(10px);
+        padding: 15px 0;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    .navbar-brand {
+        font-size: 1.8rem !important;
+        font-weight: 700;
+        background: var(--secondary-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: brandGlow 2s ease-in-out infinite alternate;
+    }
+    
+    @keyframes brandGlow {
+        from { filter: drop-shadow(0 0 5px rgba(56, 239, 125, 0.5)); }
+        to { filter: drop-shadow(0 0 20px rgba(56, 239, 125, 0.8)); }
+    }
+    
+    .nav-link {
+        color: var(--text-light) !important;
+        font-weight: 500;
+        padding: 8px 20px !important;
+        margin: 0 5px;
+        border-radius: 25px;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    /* Search Bar */
+    .search-container {
+        max-width: 600px;
+        margin: 30px auto;
+        background: var(--glass-bg);
+        backdrop-filter: blur(20px);
+        border-radius: 50px;
+        border: 1px solid var(--glass-border);
+        padding: 5px;
+    }
+
+    .search-input {
+        background: transparent;
+        border: none;
+        color: var(--text-light);
+        font-size: 1rem;
+        flex: 1;
+        padding: 15px 20px;
+    }
+
+    .search-input::placeholder {
+        color: var(--text-muted);
+    }
+
+    .search-btn {
+        background: var(--secondary-gradient);
+        border: none;
+        padding: 15px 30px;
+        border-radius: 40px;
+        color: white;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .search-btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 5px 20px rgba(56, 239, 125, 0.4);
+    }
+
+    /* Stats Section */
+    .stats-section {
+        padding: 60px 0;
+        background: rgba(0, 0, 0, 0.3);
+    }
+
+    .stat-item {
+        text-align: center;
+        padding: 20px;
+    }
+
+    .stat-number {
+        font-size: 3rem;
+        font-weight: 800;
+        background: var(--secondary-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        display: block;
+    }
+
+    .stat-label {
+        color: var(--text-muted);
+        font-size: 1.1rem;
+        margin-top: 10px;
+    }
+
+    /* Testimonials */
+    .testimonials-section {
+        padding: 80px 0;
+        background: var(--glass-bg);
+    }
+
+    .testimonial-card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(15px);
+        border-radius: 20px;
+        padding: 30px;
+        margin: 20px;
+        border: 1px solid var(--glass-border);
+        transition: all 0.3s ease;
+    }
+
+    .testimonial-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    }
+
+    .stars {
+        color: #ffd700;
+        font-size: 1.2rem;
+    }
+
+    .carousel-control-prev, .carousel-control-next {
+        width: 5%;
+        color: var(--accent-color);
+    }
+    
+    .nav-link::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background: var(--accent-color);
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+    }
+    
+    .nav-link:hover::before,
+    .nav-link.active::before {
+        width: 80%;
+    }
+    
+    .nav-link:hover {
+        color: var(--accent-color) !important;
+        transform: translateY(-2px);
+    }
+    
+    /* Hero Section */
+    .hero-section {
+        min-height: 100vh;
+        background: var(--dark-gradient);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .hero-section::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(102, 126, 234, 0.15) 0%, transparent 50%);
+        animation: rotateGradient 20s linear infinite;
+    }
+    
+    @keyframes rotateGradient {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+    
+    .hero-content {
+        text-align: center;
+        z-index: 10;
+        padding: 20px;
+    }
+    
+    .hero-title {
+        font-size: 4rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #fff 0%, #667eea 50%, #38ef7d 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 20px;
+        animation: fadeInUp 1s ease-out;
+        text-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    .hero-subtitle {
+        font-size: 1.5rem;
+        color: var(--text-muted);
+        margin-bottom: 40px;
+        animation: fadeInUp 1s ease-out 0.2s backwards;
+    }
+    
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* Glass Card */
+    .glass-card {
+        background: var(--glass-bg);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--glass-border);
+        border-radius: 20px;
+        padding: 30px;
+        transition: all 0.3s ease;
+        animation: fadeInUp 1s ease-out 0.4s backwards;
+    }
+    
+    .glass-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        border-color: var(--accent-color);
+    }
+    
+    .glass-card img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 15px;
+        margin-bottom: 15px;
+        transition: all 0.3s ease;
+    }
+    
+    .glass-card:hover img {
+        transform: scale(1.05);
+    }
+    
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+        color: var(--text-light);
+    }
+    
+    /* Modern Buttons */
+    .btn-modern {
+        padding: 12px 35px;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        border: none;
+        text-decoration: none;
+        display: inline-block;
+    }
+    
+    .btn-primary-modern {
+        background: var(--primary-gradient);
+        color: white;
+    }
+    
+    .btn-primary-modern:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
+        color: white;
+    }
+    
+    .btn-success-modern {
+        background: var(--secondary-gradient);
+        color: white;
+    }
+    
+    .btn-success-modern:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(56, 239, 125, 0.5);
+        color: white;
+    }
+    
+    /* Feature Cards */
+    .feature-container {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        flex-wrap: wrap;
+        margin-top: 50px;
+    }
+    
+    .feature-box {
+        max-width: 400px;
+        text-align: center;
+    }
+    
+    /* Steps */
+    .steps-card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        padding: 25px;
+        margin: 10px 0;
+        text-align: left;
+    }
+    
+    .step-number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: var(--primary-gradient);
+        border-radius: 50%;
+        font-weight: 700;
+        margin-right: 15px;
+    }
+    
+    /* Footer */
+    footer {
+        background: rgba(10, 10, 20, 0.95);
+        padding: 50px 0 20px;
+    }
+    
+    .footer-content h3 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        background: var(--secondary-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .footer-bottom {
+        background: rgba(0, 0, 0, 0.5);
+        padding: 20px 0;
+        margin-top: 30px;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+        .hero-title {
+            font-size: 2.5rem;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.1rem;
+        }
+        
+        .feature-container {
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .navbar-brand {
+            font-size: 1.4rem !important;
+        }
+    }
+    
+    /* Floating Animation */
+    .floating {
+        animation: floating 3s ease-in-out infinite;
+    }
+    
+    @keyframes floating {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-20px); }
+        100% { transform: translateY(0px); }
+    }
+  </style>
+{% endblock %}
+{% block block2 %}
+<div class="fluid-container">
+    <!-- Modern Navbar -->
+    <nav class="navbar navbar-expand-sm navbar-dark sticky-top">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                <a class="navbar-brand" href="/">
+                    <i class="fas fa-plane-departure me-2"></i>Smart Tours
+                </a>
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">
+                            <i class="fas fa-home me-1"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/loginpage">
+                            <i class="fas fa-sign-in-alt me-1"></i> Login
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/signuppage">
+                            <i class="fas fa-user-plus me-1"></i> SignUp
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="hero-content container">
+            <h1 class="hero-title">Smart Tours</h1>
+            <p class="hero-subtitle">Vacation as a Lifestyle.....</p>
+            
+            {% block hero_search %}
+            <!-- Interactive Search Bar -->
+            <div class="search-container d-flex align-items-center mb-5">
+                <i class="fas fa-search ms-3 text-muted"></i>
+                <input type="text" class="search-input" placeholder="Where do you want to go?">
+                <button class="search-btn">Search</button>
+            </div>
+            {% endblock %}
+
+            <!-- Feature Cards -->
+            <div class="feature-container">
+                <div class="glass-card feature-box floating" style="animation-delay: 0s;">
+                    <img src="../static/images/homebg.jpg" alt="Tours">
+                    <div class="card-title">
+                        <i class="fas fa-map-marked-alt me-2 text-primary"></i>Book A Tour
+                    </div>
+                    <p style="color: var(--text-muted); margin-bottom: 20px;">Explore amazing destinations across India with our curated tour packages.</p>
+                    <a href="/loginpage" class="btn btn-modern btn-primary-modern">
+                        <i class="fas fa-calendar-check me-2"></i>Book Now
+                    </a>
+                </div>
+                
+                <div class="glass-card feature-box floating" style="animation-delay: 0.5s;">
+                    <img src="../static/images/busflight.jpg" alt="Travel">
+                    <div class="card-title">
+                        <i class="fas fa-bus me-2 text-success"></i>Bus or Flight
+                    </div>
+                    <p style="color: var(--text-muted); margin-bottom: 20px;">Comfortable travel options with multiple airlines and bus services.</p>
+                    <a href="/loginpage" class="btn btn-modern btn-success-modern">
+                        <i class="fas fa-ticket-alt me-2"></i>Book Travel
+                    </a>
+                </div>
+                
+                <div class="glass-card feature-box floating" style="animation-delay: 1s;">
+                    <img src="../static/images/hospitality.jfif" alt="Hospitality">
+                    <div class="card-title">
+                        <i class="fas fa-hotel me-2 text-warning"></i>Hospitality
+                    </div>
+                    <p style="color: var(--text-muted); margin-bottom: 20px;">Premium hotels and resorts for a comfortable stay.</p>
+                    <a href="/loginpage" class="btn btn-modern btn-primary-modern">
+                        <i class="fas fa-bed me-2"></i>View Hotels
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="stats-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-6 stat-item">
+                    <span class="stat-number" data-target="15000">15k+</span>
+                    <span class="stat-label">Happy Travelers</span>
+                </div>
+                <div class="col-md-3 col-6 stat-item">
+                    <span class="stat-number" data-target="500">500+</span>
+                    <span class="stat-label">Destinations</span>
+                </div>
+                <div class="col-md-3 col-6 stat-item">
+                    <span class="stat-number" data-target="200">200+</span>
+                    <span class="stat-label">Luxury Hotels</span>
+                </div>
+                <div class="col-md-3 col-6 stat-item">
+                    <span class="stat-number" data-target="24">24/7</span>
+                    <span class="stat-label">Support</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Testimonials Section -->
+    <div class="testimonials-section">
+        <div class="container">
+            <h2 class="text-center mb-5" style="font-weight: 700;">What Our Travelers Say</h2>
+            <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="row justify-content-center">
+                            <div class="col-md-8">
+                                <div class="testimonial-card text-center">
+                                    <div class="stars mb-3">
+                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                    </div>
+                                    <p class="fs-5 italic mb-4">"The best travel experience I've ever had. Everything was perfectly organized from the flight to the hotel stay."</p>
+                                    <h5 class="fw-bold">Rahul Sharma</h5>
+                                    <span class="text-muted">Adventure Enthusiast</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row justify-content-center">
+                            <div class="col-md-8">
+                                <div class="testimonial-card text-center">
+                                    <div class="stars mb-3">
+                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                    <p class="fs-5 italic mb-4">"Smart Tours made our family vacation so easy. The tour guides were knowledgeable and the booking process was seamless."</p>
+                                    <h5 class="fw-bold">Priya Patel</h5>
+                                    <span class="text-muted">Family Traveler</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- How It Works -->
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="glass-card">
+                    <h3 class="text-center mb-4">
+                        <i class="fas fa-question-circle me-2 text-primary"></i>How It Works
+                    </h3>
+                    <div class="steps-card">
+                        <span class="step-number">1</span>
+                        <span>Click on 'Book' button</span>
+                    </div>
+                    <div class="steps-card">
+                        <span class="step-number">2</span>
+                        <span>Book Your Tour</span>
+                    </div>
+                    <div class="steps-card">
+                        <span class="step-number">3</span>
+                        <span>Enjoy Your Tour</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Buttons -->
+    <div class="text-center py-5" style="animation: fadeInUp 1s ease-out 0.6s backwards;">
+        <a href="/loginpage" class="btn btn-modern btn-success-modern me-3">
+            <i class="fas fa-sign-in-alt me-2"></i>Login to Start
+        </a>
+        <span style="color: var(--text-muted); margin: 0 15px;">or</span>
+        <a href="/signuppage" class="btn btn-modern btn-primary-modern">
+            <i class="fas fa-user-plus me-2"></i>Create Account
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+{% block block3 %}
+<center>
+</center>
+{% endblock %}
+
+{% block bloc4 %}
+<br>
+<footer>
+    <div class="container">
+        <div class="footer-content text-center">
+            <h3>Smart Tours</h3>
+            <p>Your gateway to elegant travel experiences</p>
+            <p>designed and created by nargis</p>
+        </div>
+        <div class="footer-bottom text-center">
+
+        </div>
+    </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+<script>
+    // Stats Animation
+    const stats = document.querySelectorAll('.stat-number');
+    const speed = 200;
+
+    const animateStats = () => {
+        stats.forEach(stat => {
+            const target = +stat.getAttribute('data-target');
+            const count = +stat.innerText.replace(/[^0-9]/g, '');
+            const inc = target / speed;
+
+            if (count < target) {
+                stat.innerText = Math.ceil(count + inc) + (target > 1000 ? 'k+' : (target === 24 ? '/7' : '+'));
+                setTimeout(animateStats, 1);
+            } else {
+                stat.innerText = (target > 1000 ? (target/1000) + 'k+' : (target === 24 ? '24/7' : target + '+'));
+            }
+        });
+    };
+
+    // Run animation when stats section is in view
+    const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+            animateStats();
+        }
+    }, { threshold: 0.5 });
+
+    const statsSection = document.querySelector('.stats-section');
+    if (statsSection) observer.observe(statsSection);
+</script>
+{% endblock %}

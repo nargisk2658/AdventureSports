@@ -1,0 +1,181 @@
+{% extends 'homepage_updated.html' %}
+{% load static %}
+
+{% block block1 %}
+{{ block.super }}
+<style>
+  .user-dashboard {
+    min-height: 100vh;
+    padding: 7rem 0 4rem;
+    background:
+      linear-gradient(rgba(15, 23, 42, 0.76), rgba(2, 6, 23, 0.9)),
+      url("{% static 'images/mbg1.jpg' %}") center/cover fixed no-repeat;
+  }
+
+  .welcome-panel {
+    max-width: 850px;
+    margin: 0 auto 3rem;
+    text-align: center;
+  }
+
+  .welcome-panel h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 800;
+    color: #f8fafc;
+    margin-bottom: 1rem;
+  }
+
+  .welcome-panel p {
+    color: var(--text-muted);
+    font-size: 1.15rem;
+  }
+
+  .quick-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+  }
+
+  .quick-card img {
+    height: 190px;
+  }
+
+  .quick-icon {
+    width: 48px;
+    height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    color: #fff;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    margin-bottom: 1rem;
+  }
+
+  .stats-strip {
+    margin-top: 3rem;
+  }
+
+  .stat-card {
+    padding: 1.5rem;
+  }
+
+  .stat-card h2 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    margin-bottom: 0.25rem;
+  }
+
+  .navbar .nav-link.active-home {
+    color: var(--primary) !important;
+    background: rgba(59, 130, 246, 0.12);
+  }
+</style>
+{% endblock %}
+
+{% block block2 %}
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: rgba(15,23,42,0.95); backdrop-filter: blur(20px);">
+  <div class="container">
+    <a class="navbar-brand fw-bold fs-3" href="/home">
+      <i class="fas fa-plane-departure me-2"></i>Smart Tours
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link active-home px-4 py-2 mx-2 rounded-pill" href="/home"><i class="fas fa-home me-1"></i>Home</a></li>
+        <li class="nav-item"><a class="nav-link px-4 py-2 mx-2 rounded-pill" href="/tours"><i class="fas fa-map me-1"></i>Tours</a></li>
+        <li class="nav-item"><a class="nav-link px-4 py-2 mx-2 rounded-pill" href="/bookbus"><i class="fas fa-bus me-1"></i>Bus</a></li>
+        <li class="nav-item"><a class="nav-link px-4 py-2 mx-2 rounded-pill" href="/bookflight"><i class="fas fa-plane me-1"></i>Flight</a></li>
+        <li class="nav-item"><a class="nav-link px-4 py-2 mx-2 rounded-pill" href="/seasonsdashboard"><i class="fas fa-calendar me-1"></i>Seasons</a></li>
+      </ul>
+      <div class="dropdown">
+        <a class="btn btn-outline-light px-4 py-2 rounded-pill dropdown-toggle" href="#" data-bs-toggle="dropdown">
+          <i class="fas fa-user-circle me-1"></i>Menu
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end shadow-lg" style="background: rgba(15,23,42,0.98); border: 1px solid rgba(255,255,255,0.1);">
+          <li><a class="dropdown-item py-2" href="/profile"><i class="fas fa-user me-2"></i>Profile</a></li>
+          <li><a class="dropdown-item py-2" href="/dashboard"><i class="fas fa-chart-bar me-2"></i>Dashboard</a></li>
+          <li><hr class="dropdown-divider border-secondary"></li>
+          <li><a class="dropdown-item py-2 text-danger" href="/logout"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main class="user-dashboard">
+  <div class="container">
+    <section class="welcome-panel">
+      <h1>Welcome Back</h1>
+      <p>{{ email }} is signed in. Pick where you want to go next and keep your travel plans moving.</p>
+    </section>
+
+    <section class="row g-4">
+      <div class="col-lg-4">
+        <article class="glass-card quick-card">
+          <span class="quick-icon"><i class="fas fa-person-hiking"></i></span>
+          <img src="{% static 'images/hbg2.jpg' %}" alt="Adventure sports">
+          <h3 class="card-title">Adventure Sports</h3>
+          <p class="text-muted">Find rafting, trekking, scuba diving, paragliding, and other thrill experiences.</p>
+          <a href="/adventures/" class="btn-modern mt-auto"><i class="fas fa-mountain-sun me-2"></i>Explore Adventures</a>
+        </article>
+      </div>
+
+      <div class="col-lg-4">
+        <article class="glass-card quick-card">
+          <span class="quick-icon"><i class="fas fa-ticket"></i></span>
+          <img src="{% static 'images/busflight.jpg' %}" alt="Bus and flight booking">
+          <h3 class="card-title">Book Travel</h3>
+          <p class="text-muted">Find buses and flights for your next trip.</p>
+          <a href="/bookbus" class="btn-modern mt-auto"><i class="fas fa-bus me-2"></i>Book Bus</a>
+        </article>
+      </div>
+
+      <div class="col-lg-4">
+        <article class="glass-card quick-card">
+          <span class="quick-icon"><i class="fas fa-bed"></i></span>
+          <img src="{% static 'images/hospitality.jfif' %}" alt="Hospitality">
+          <h3 class="card-title">Luxury Stay</h3>
+          <p class="text-muted">Browse hospitality options for a comfortable journey.</p>
+          <a href="/hospitality" class="btn-modern mt-auto"><i class="fas fa-hotel me-2"></i>Find Hotels</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="stats-strip row g-4 text-center">
+      <div class="col-md-3">
+        <div class="glass-card stat-card">
+          <h2 class="text-primary">10K+</h2>
+          <p class="text-muted mb-0">Happy Travelers</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="glass-card stat-card">
+          <h2 style="color: var(--accent);">500+</h2>
+          <p class="text-muted mb-0">Destinations</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="glass-card stat-card">
+          <h2 class="text-warning">4.9</h2>
+          <p class="text-muted mb-0">Rating</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="glass-card stat-card">
+          <h2 class="text-success">50+</h2>
+          <p class="text-muted mb-0">Awards</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+{% endblock %}
+
+{% block bloc4 %}
+{{ block.super }}
+{% endblock %}

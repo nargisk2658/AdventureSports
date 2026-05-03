@@ -1,0 +1,242 @@
+{% block block1 %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <title>Smart Tours - Premium Travel Booking</title>
+</head>
+<style>
+  :root {
+    --bg-primary: #0f172a;
+    --bg-secondary: #020617;
+    --primary: #3b82f6;
+    --accent: #a855f7;
+    --text-primary: #e5e7eb;
+    --text-muted: #9ca3af;
+    --glass-bg: rgba(255,255,255,0.05);
+    --glass-border: rgba(255,255,255,0.1);
+    --shadow-glow: 0 25px 50px -12px rgba(0,0,0,0.5);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  .hero-section {
+    min-height: 100vh;
+    background: linear-gradient(rgba(15,23,42,0.8), rgba(2,6,23,0.8)), url("../static/images/homebg.jpg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  .hero-content h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(3.5rem, 8vw, 6rem);
+    font-weight: 800;
+    background: linear-gradient(135deg, #ffffff 0%, var(--primary) 50%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  .hero-subtitle {
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    color: var(--text-muted);
+    text-align: center;
+    margin-bottom: 3rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(25px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 2.5rem;
+    transition: var(--transition);
+    text-align: center;
+    box-shadow: var(--shadow-glow);
+  }
+  .glass-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 40px 80px rgba(0,0,0,0.4);
+  }
+  .glass-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 20px;
+    margin-bottom: 1.5rem;
+    transition: var(--transition);
+  }
+  .glass-card:hover img { transform: scale(1.05); }
+  .card-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .btn-modern {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    border: none;
+    border-radius: 50px;
+    padding: 1rem 2.5rem;
+    color: white;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    transition: var(--transition);
+    text-decoration: none;
+    display: inline-block;
+    box-shadow: 0 10px 30px rgba(59,130,246,0.3);
+  }
+  .btn-modern:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(59,130,246,0.5);
+    color: white;
+  }
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2.5rem;
+    margin: 4rem 0;
+  }
+  .floating:nth-child(1) { animation-delay: 0.1s; }
+  .floating:nth-child(2) { animation-delay: 0.3s; }
+  .floating:nth-child(3) { animation-delay: 0.5s; }
+  @keyframes floating {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+  footer {
+    background: rgba(2,6,23,0.95);
+    backdrop-filter: blur(20px);
+    padding: 4rem 0 2rem;
+    border-top: 1px solid var(--glass-border);
+  }
+  @media (max-width: 768px) {
+    .hero-section { padding: 2rem 1rem; }
+    .feature-grid { grid-template-columns: 1fr; }
+  }
+</style>
+{% endblock %}
+
+{% block block2 %}
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: rgba(15,23,42,0.95); backdrop-filter: blur(20px);">
+  <div class="container">
+    <a class="navbar-brand fw-bold fs-3" href="#">
+      <i class="fas fa-plane-departure me-2"></i>Smart Tours
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link px-4 py-2 mx-2 rounded-pill" href="/home">
+            <i class="fas fa-home me-1"></i>Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link px-4 py-2 mx-2 rounded-pill" href="/tours">
+            <i class="fas fa-map me-1"></i>Tours
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link px-4 py-2 mx-2 rounded-pill" href="/bookbus">
+            <i class="fas fa-bus me-1"></i>Bus
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link px-4 py-2 mx-2 rounded-pill" href="/bookflight">
+            <i class="fas fa-plane me-1"></i>Flight
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link px-4 py-2 mx-2 rounded-pill active" href="/seasonsdashboard">
+            <i class="fas fa-calendar me-1"></i>Seasons
+          </a>
+        </li>
+      </ul>
+      <div class="dropdown">
+        <a class="btn btn-outline-light px-4 py-2 rounded-pill dropdown-toggle" href="#" data-bs-toggle="dropdown">
+          <i class="fas fa-user-circle me-1"></i>Menu
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end shadow-lg" style="background: rgba(15,23,42,0.98); border: 1px solid rgba(255,255,255,0.1);">
+          <li><a class="dropdown-item py-2" href="/profile"><i class="fas fa-user me-2"></i>Profile</a></li>
+          <li><a class="dropdown-item py-2" href="/dashboard"><i class="fas fa-chart-bar me-2"></i>Dashboard</a></li>
+          <li><hr class="dropdown-divider border-secondary"></li>
+          <li><a class="dropdown-item py-2 text-danger" href="/logout"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="hero-section pt-5">
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <h1 class="hero-content">Premium Travel Experiences</h1>
+        <p class="hero-subtitle">Elegant journeys with glassmorphism design. Book buses, flights, tours in style.</p>
+      </div>
+    </div>
+    <div class="feature-grid">
+      <div class="glass-card floating col-lg-4">
+        <img src="../static/images/hbg2.jpg" alt="Adventure sports">
+        <h3 class="card-title">🧗 Adventure Sports</h3>
+        <p class="text-muted mb-4">Rafting, trekking, scuba diving, paragliding, and more high-energy escapes.</p>
+        <a href="/adventures/" class="btn-modern">
+          <i class="fas fa-mountain-sun me-2"></i>Explore Adventures
+        </a>
+      </div>
+      <div class="glass-card floating col-lg-4">
+        <img src="../static/images/busflight.jpg" alt="Travel">
+        <h3 class="card-title">🚌 Fast Travel</h3>
+        <p class="text-muted mb-4">Bus & flight bookings with real-time availability.</p>
+        <a href="/bookbus" class="btn-modern">
+          <i class="fas fa-ticket-alt me-2"></i>Book Now
+        </a>
+      </div>
+      <div class="glass-card floating col-lg-4">
+        <img src="../static/images/hospitality.jfif" alt="Hospitality">
+        <h3 class="card-title">🏨 Luxury Stays</h3>
+        <p class="text-muted mb-4">Premium hotels and resorts for perfect comfort.</p>
+        <a href="/hospitality" class="btn-modern">
+          <i class="fas fa-hotel me-2"></i>View Hotels
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block block3 %}{% endblock %}
+
+{% block bloc4 %}
+<footer class="mt-auto">
+  <div class="container text-center py-5">
+    <h3 class="mb-3">Smart Tours</h3>
+    <p class="text-muted mb-2">Your gateway to elegant travel experiences</p>
+    <p class="text-muted mb-4">designed and created by nargis</p>
+    <div class="d-flex justify-content-center gap-4 mb-4">
+      <a href="#" class="text-muted"><i class="fab fa-facebook fa-lg"></i></a>
+      <a href="#" class="text-muted"><i class="fab fa-twitter fa-lg"></i></a>
+      <a href="#" class="text-muted"><i class="fab fa-instagram fa-lg"></i></a>
+    </div>
+
+  </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock %}
